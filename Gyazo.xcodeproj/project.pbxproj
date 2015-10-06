@@ -132,6 +132,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0450;
+				TargetAttributes = {
+					10F3CA231499F92900F62513 = {
+						DevelopmentTeam = AUGEVZE4MW;
+					};
+				};
 			};
 			buildConfigurationList = 10F3CA1E1499F92900F62513 /* Build configuration list for PBXProject "Gyazo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -250,7 +255,8 @@
 		10F3CA431499F92A00F62513 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gyazo/Gyazo-Prefix.pch";
@@ -264,7 +270,8 @@
 		10F3CA441499F92A00F62513 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Gyazo/Gyazo-Prefix.pch";
