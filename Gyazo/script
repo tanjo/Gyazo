@@ -25,7 +25,7 @@ if imagefile && File.exist?(imagefile) then
 else
   system "screencapture -i \"#{tmpfile}\""
   if File.exist?(tmpfile) then
-    system "sips -d profile --deleteColorManagementProperties \"#{tmpfile}\""  
+    system "sips -d profile --deleteColorManagementProperties \"#{tmpfile}\""
     dpiWidth    = `sips -g dpiWidth "#{tmpfile}" | awk '/:/ {print $2}'`
     dpiHeight   = `sips -g dpiHeight "#{tmpfile}" | awk '/:/ {print $2}'`
     pixelWidth  = `sips -g pixelWidth "#{tmpfile}" | awk '/:/ {print $2}'`
@@ -34,6 +34,7 @@ else
         width  =  pixelWidth.to_f * 72.0 / dpiWidth.to_f
         height =  pixelHeight.to_f* 72.0 / dpiHeight.to_f
         system "sips -s dpiWidth 72 -s dpiHeight 72 -z #{height} #{width} \"#{tmpfile}\""
+        system "osascript -e 'on run args' -e 'set the clipboard to POSIX file (first item of args)' -e end '#{tmpfile}'"
     end
   end
 end
