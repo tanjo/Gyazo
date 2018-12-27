@@ -2,12 +2,14 @@
 
 require 'date'
 require 'net/http'
+require 'fileutils'
 
 # get id
 user = IO.popen("whoami", "r+").gets.chomp
 program = ARGV[0].to_s
 idfile = "/Users/#{user}/Library/Gyazo/id"
 old_idfile = File.dirname(program) + "/gyazo.app/Contents/Resources/id"
+rectfile = "/Users/#{user}/Pictures/Gyazo/rect"
 
 id = ''
 if File.exist?(idfile) then
@@ -16,9 +18,26 @@ elsif File.exist?(old_idfile) then
   id = File.read(old_idfile).chomp
 end
 
+rect = { on: false }
+if File.exist?(rectfile) then
+  rect = eval(File.read(rectfile))
+end
+
 # capture png file
+
+unless FileTest.exist?("/Users/#{user}/Pictures/Gyazo")
+  FileUtils.mkdir_p("/Users/#{user}/Pictures/Gyazo")
+end
 tmpfile = "/Users/#{user}/Pictures/Gyazo/スクリーンショット #{Time.now.strftime("%Y-%m-%d %H.%M.%S")}.png"
 imagefile = ARGV[1]
+
+if rect[:on]
+  system "screencapture -R#{rect[:x]},#{rect[:y]},#{rect[:width]},#{rect[:height]} \"#{tmpfile}\""
+  if File.exist?(tmpfile) then
+    system "osascript -e 'on run args' -e 'set the clipboard to POSIX file (first item of args)' -e end '#{tmpfile}'"
+  end
+  exit
+end
 
 if imagefile && File.exist?(imagefile) then
   system "sips -s format png \"#{imagefile}\" --out \"#{tmpfile}\""
